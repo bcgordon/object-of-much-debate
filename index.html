@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Object of Much Debate</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Tokens: Light ── */
+    :root {
+      --cream:       #F5F0E8;
+      --parchment:   #EDE5D0;
+      --terracotta:  #C0674A;
+      --bark:        #3D2E1E;
+      --driftwood:   #7A6652;
+      --ash:         #5A4535;
+      --fog:         #A89880;
+      --mist:        #BFB09A;
+      --warm-white:  #FFF8F0;
+      --card-bg:     #FFF8F0;
+      --nav-bg:      #F5F0E8;
+      --footer-bg:   #EDE5D0;
+    }
+
+    /* ── Tokens: Dark ── */
+    html.dark {
+      --cream:       #1E1812;
+      --parchment:   #261E14;
+      --terracotta:  #D4784E;
+      --bark:        #E8DFC8;
+      --driftwood:   #B0987E;
+      --ash:         #C8B89A;
+      --fog:         #7A6A58;
+      --mist:        #5A4E40;
+      --warm-white:  #2A211A;
+      --card-bg:     #2A211A;
+      --nav-bg:      #1A1410;
+      --footer-bg:   #161210;
+    }
+
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      background: var(--cream);
+      color: var(--bark);
+      overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    /* ── Mode Toggle ── */
+    .mode-toggle {
+      background: none;
+      border: 1px solid rgba(61,46,30,0.2);
+      color: var(--driftwood);
+      font-family: Georgia, serif;
+      font-size: 13px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.5px;
+    }
+    .mode-toggle:hover {
+      border-color: var(--terracotta);
+      color: var(--terracotta);
+    }
+    html.dark .mode-toggle {
+      border-color: rgba(232,223,200,0.15);
+    }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 48px;
+      background: var(--nav-bg);
+      border-bottom: 1px solid rgba(61,46,30,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-size: 14px;
+      color: var(--driftwood);
+      font-style: italic;
+      letter-spacing: 0.5px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: var(--driftwood);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--bark); }
+    .nav-links a.primary {
+      color: var(--terracotta);
+      border-bottom: 1px solid var(--terracotta);
+      padding-bottom: 2px;
+    }
+
+    /* ── Hero ── */
+    header.hero {
+      position: relative;
+      min-height: 82vh;
+      display: flex;
+      align-items: center;
+      padding: 80px 48px;
+      overflow: hidden;
+      background: linear-gradient(160deg, var(--cream) 60%, var(--parchment) 100%);
+    }
+    .blob-a {
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 420px; height: 420px;
+      border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+      background: rgba(192,103,74,0.08);
+      pointer-events: none;
+    }
+    .blob-b {
+      position: absolute;
+      bottom: -60px; left: 40%;
+      width: 300px; height: 300px;
+      border-radius: 40% 60% 30% 70% / 60% 40% 70% 30%;
+      background: rgba(107,124,92,0.07);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 620px;
+      position: relative;
+      z-index: 1;
+    }
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 3px;
+      color: var(--terracotta);
+      text-transform: uppercase;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: clamp(48px, 7vw, 80px);
+      font-weight: normal;
+      line-height: 1.08;
+      color: var(--bark);
+      margin-bottom: 28px;
+      letter-spacing: -1px;
+    }
+    .divider {
+      width: 48px; height: 2px;
+      background: linear-gradient(90deg, var(--terracotta), transparent);
+      border-radius: 2px;
+      margin-bottom: 28px;
+    }
+    .subhead {
+      font-size: 18px;
+      line-height: 1.75;
+      color: var(--driftwood);
+      margin-bottom: 28px;
+      max-width: 500px;
+    }
+    .tao {
+      font-size: 14px;
+      color: var(--fog);
+      margin-bottom: 44px;
+      line-height: 1.6;
+    }
+    .tao-attrib {
+      font-size: 13px;
+      color: var(--mist);
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      background: var(--terracotta);
+      border: none;
+      color: var(--warm-white);
+      padding: 14px 32px;
+      font-family: Georgia, serif;
+      font-size: 14px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #A85840; }
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid rgba(61,46,30,0.25);
+      color: var(--driftwood);
+      padding: 14px 32px;
+      font-family: Georgia, serif;
+      font-size: 14px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--driftwood); color: var(--bark); }
+
+    /* ── Sections ── */
+    section {
+      padding: 80px 0;
+    }
+    section.alt {
+      background: var(--parchment);
+    }
+    .section-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+    .section-eyebrow {
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: var(--terracotta);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-head {
+      font-size: 36px;
+      font-weight: normal;
+      color: var(--bark);
+      margin-bottom: 14px;
+      letter-spacing: -0.5px;
+    }
+    .section-sub {
+      font-size: 16px;
+      color: var(--driftwood);
+      line-height: 1.75;
+      margin-bottom: 44px;
+      max-width: 520px;
+    }
+
+    /* ── Prompt Grid ── */
+    .prompt-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .prompt-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(61,46,30,0.08);
+      padding: 28px 24px;
+      cursor: pointer;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+    .prompt-card:hover {
+      border-color: var(--terracotta);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(192,103,74,0.12);
+    }
+    .prompt-card span {
+      font-size: 17px;
+      color: var(--terracotta);
+      font-style: italic;
+      line-height: 1.4;
+    }
+
+    /* ── Essay List ── */
+    .essay-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .essay-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(61,46,30,0.08);
+      border-left: 3px solid transparent;
+      padding: 32px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+    .essay-card:hover {
+      border-left-color: var(--terracotta);
+      box-shadow: 0 2px 12px rgba(61,46,30,0.08);
+    }
+    .essay-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .essay-prompt-tag {
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--terracotta);
+      text-transform: uppercase;
+    }
+    .essay-read {
+      font-size: 12px;
+      color: var(--fog);
+    }
+    .essay-excerpt {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--ash);
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    .essay-footer {
+      display: flex;
+      gap: 12px;
+      align-items: baseline;
+    }
+    .essay-author {
+      font-size: 14px;
+      color: var(--bark);
+    }
+    .essay-tradition {
+      font-size: 12px;
+      color: var(--fog);
+      font-style: italic;
+    }
+
+    /* ── About ── */
+    .about-body {
+      max-width: 600px;
+    }
+    .about-p {
+      font-size: 17px;
+      line-height: 1.85;
+      color: var(--ash);
+      margin-bottom: 24px;
+    }
+    .about-divider {
+      width: 40px; height: 2px;
+      background: linear-gradient(90deg, var(--terracotta), transparent);
+      border-radius: 2px;
+      margin: 40px 0;
+    }
+    .about-quote {
+      font-size: 22px;
+      line-height: 1.6;
+      color: var(--bark);
+      font-style: italic;
+      margin: 40px 0 8px 0;
+      padding-left: 24px;
+      border-left: 3px solid var(--terracotta);
+    }
+    .about-quote-attrib {
+      font-size: 13px;
+      color: var(--fog);
+      padding-left: 24px;
+      margin-bottom: 32px;
+    }
+    .about-signature {
+      font-size: 15px;
+      color: var(--driftwood);
+      font-style: italic;
+      margin-top: 40px;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      position: relative;
+      padding: 100px 48px;
+      text-align: center;
+      background: linear-gradient(160deg, var(--parchment), var(--cream));
+      overflow: hidden;
+      border-top: 1px solid rgba(61,46,30,0.08);
+    }
+    .cta-blob {
+      position: absolute;
+      top: -60px; left: 50%;
+      transform: translateX(-50%);
+      width: 500px; height: 300px;
+      border-radius: 50%;
+      background: rgba(192,103,74,0.06);
+      pointer-events: none;
+    }
+    .cta-inner {
+      max-width: 500px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .cta-head {
+      font-size: 64px;
+      font-weight: normal;
+      color: var(--bark);
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+      font-style: italic;
+    }
+    .cta-sub {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--driftwood);
+      margin-bottom: 40px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      padding: 40px 48px;
+      text-align: center;
+      border-top: 1px solid rgba(61,46,30,0.08);
+      background: var(--footer-bg);
+    }
+    .footer-text {
+      font-size: 12px;
+      color: var(--fog);
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .footer-tao {
+      font-size: 12px;
+      color: var(--mist);
+      font-style: italic;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      nav { padding: 16px 24px; }
+      header.hero { padding: 60px 24px; }
+      .section-inner { padding: 0 24px; }
+      .prompt-grid { grid-template-columns: repeat(2, 1fr); }
+      .cta-section { padding: 72px 24px; }
+      footer { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <span class="nav-logo">The Object of Much Debate</span>
+    <div class="nav-links">
+      <a href="#essays">Essays</a>
+      <a href="#about">About</a>
+      <a href="#write" class="primary">Write</a>
+      <button class="mode-toggle" onclick="toggleMode()" id="mode-btn">☽ Dark</button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="blob-a"></div>
+    <div class="blob-b"></div>
+    <div class="hero-inner">
+      <p class="eyebrow">An open conversation about faith</p>
+      <h1>The Object<br>of Much Debate</h1>
+      <div class="divider"></div>
+      <p class="subhead">
+        A place for honest writing about belief — across traditions,
+        across doubt, across the distances that usually keep us from
+        speaking plainly to one another.
+      </p>
+      <p class="tao">
+        <em>"The name that can be named is not the Name."</em>
+        <span class="tao-attrib"> — Tao Te Ching, Chapter 1</span>
+      </p>
+      <div class="hero-actions">
+        <button class="btn-primary">Read the Essays</button>
+        <button class="btn-ghost">Write Your Own</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- I Believe Framework -->
+  <section>
+    <div class="section-inner">
+      <p class="section-eyebrow">The Framework</p>
+      <h2 class="section-head">I Believe</h2>
+      <p class="section-sub">
+        Every essay begins with three words. What follows is yours alone.
+        Six prompts. Six invitations to say something true.
+      </p>
+      <div class="prompt-grid">
+        <div class="prompt-card"><span>What I Believe</span></div>
+        <div class="prompt-card"><span>Who I Believe</span></div>
+        <div class="prompt-card"><span>When I Believe</span></div>
+        <div class="prompt-card"><span>Where I Believe</span></div>
+        <div class="prompt-card"><span>Why I Believe</span></div>
+        <div class="prompt-card"><span>How I Believe</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Essays -->
+  <section class="alt" id="essays">
+    <div class="section-inner">
+      <p class="section-eyebrow">Recent Essays</p>
+      <h2 class="section-head">From the Community</h2>
+      <div class="essay-list">
+
+        <div class="essay-card">
+          <div class="essay-meta">
+            <span class="essay-prompt-tag">What I Believe</span>
+            <span class="essay-read">4 min read</span>
+          </div>
+          <p class="essay-excerpt">"I believe in the thing that cannot be named without being diminished. I believe the moment you call it God, you have already begun to shrink it into something you can manage."</p>
+          <div class="essay-footer">
+            <span class="essay-author">BC Gordon</span>
+            <span class="essay-tradition">Searching Atheist</span>
+          </div>
+        </div>
+
+        <div class="essay-card">
+          <div class="essay-meta">
+            <span class="essay-prompt-tag">Why I Believe</span>
+            <span class="essay-read">5 min read</span>
+          </div>
+          <p class="essay-excerpt">"I have stood at enough bedsides to know that the why is the hardest question. Not because faith has no answer, but because the honest answer is always incomplete."</p>
+          <div class="essay-footer">
+            <span class="essay-author">Fr. James Whitmore</span>
+            <span class="essay-tradition">Episcopalian</span>
+          </div>
+        </div>
+
+        <div class="essay-card">
+          <div class="essay-meta">
+            <span class="essay-prompt-tag">When I Believe</span>
+            <span class="essay-read">3 min read</span>
+          </div>
+          <p class="essay-excerpt">"It comes in the ordinary moments. Not in the cathedral, not in the crisis. It comes when I am washing dishes and the light through the window is exactly right."</p>
+          <div class="essay-footer">
+            <span class="essay-author">A Reader</span>
+            <span class="essay-tradition">Lapsed Catholic</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="section-inner">
+      <p class="section-eyebrow">About</p>
+      <h2 class="section-head">Why This Exists</h2>
+      <div class="about-body">
+
+        <p class="about-p">
+          You may know the old story of the blind men and an elephant — each one
+          touching a different part, each one certain of what they've found, none
+          of them wrong, none of them right. It is a good story. But I have my own.
+        </p>
+
+        <p class="about-p">
+          A group of seekers enters a dark cave in search of Truth. They descend
+          to the deepest chamber, where the darkness is absolute — they cannot see
+          their hand in front of their face. And there, in that darkness, they feel
+          a presence. An object. If the cave were to fill with light, the object
+          would overwhelm them. Blind them. Perhaps destroy them. The darkness is
+          not the obstacle. The darkness is the only condition under which the
+          thing can be approached at all.
+        </p>
+
+        <p class="about-p">
+          They reach out and touch it. Some feel heat. Others cold. Some find it
+          hard, others soft. The object is a myriad of contradictions — and each
+          one is true in its way. But the greater truth, the actual Truth, is that
+          the object is the sum of all of those contradictions. It transcends them.
+          And the only way the seekers can begin to see it is by speaking to one
+          another — describing what they feel, trusting what others report, and
+          listening as if each voice reveals something their own hands cannot reach.
+        </p>
+
+        <p class="about-p">
+          In hearing each other, they each see more. And more of that object —
+          that object of much debate — is revealed to them all.
+        </p>
+
+        <p class="about-p">
+          That is how I see the thing most people call God. Every tradition,
+          every doubt, every conversion and every quiet departure — each one
+          is a hand on a different part of something too large to hold.
+        </p>
+
+        <p class="about-p">
+          I didn't arrive at uncertainty by avoiding faith. I was raised in
+          the evangelical church, and that formation shaped me deeply — and
+          damaged me in ways that I am still coming to terms with. What followed was a
+          long search: Catholic mysticism, Buddhism, Islam, Hinduism, Taoism.
+          I filtered everything through humanism and universalist thought. In
+          each tradition I found something genuinely luminous. And in each one,
+          eventually, I found the same thing that had sent me running from the
+          faith of my childhood — the human instinct to take something infinite
+          and build a fence around it.
+        </p>
+
+        <p class="about-p">
+          That cavern is what this place is trying to be. A space dark enough
+          to approach the thing honestly — where no single light source blinds
+          us, and where what we each feel is only the beginning of what we might
+          collectively see. I made it because I think the world is fracturing
+          along the lines of what we believe — or what we believe others believe.
+          Religious division runs deeper than most of us want to admit.
+          It shapes politics, community, family, and the quiet ways we
+          decide who is worth listening to. I don't think tolerance is
+          enough. Tolerance is just agreeing not to fight. I want something
+          harder and more interesting than that.
+        </p>
+
+        <p class="about-p">
+          What I want is honest conversation between people who do not agree.
+          Not debate — the object has had enough of that. Nobody comes here
+          to win. Not therapy — nobody comes here to be fixed. Just the
+          willingness to say what you actually believe, mean it fully, and
+          sit with someone who sees it entirely differently without needing
+          them to be wrong.
+        </p>
+
+        <div class="about-divider"></div>
+
+        <p class="about-p">
+          The framework is simple. Six essays, one series: <em>What I Believe.
+          Who I Believe. When I Believe. Where I Believe. Why I Believe.
+          How I Believe.</em> The journalist's questions, turned inward.
+          You write your answers. Others read them. Sometimes a conversation
+          begins. We see where it goes from there.
+        </p>
+
+        <p class="about-p">
+          The first two voices here are mine and a friend's — an Episcopalian
+          priest I have known mostly through letters, and am only now beginning
+          to know in person. If that image means anything to you — a searching
+          atheist and a priest, in genuine correspondence, finding more common
+          ground than either expected — then you are probably in the right place.
+        </p>
+
+        <p class="about-quote">
+          "The name that can be named is not the Name."
+        </p>
+        <p class="about-quote-attrib">— Tao Te Ching, Chapter 1</p>
+
+        <p class="about-p">
+          Once you name the thing, you begin to control it. And faith was
+          never meant to be controlled. This community is for people who
+          understand that — whatever they happen to call their beliefs.
+        </p>
+
+        <p class="about-signature">— BC Gordon, Founder</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="write">
+    <div class="cta-blob"></div>
+    <div class="cta-inner">
+      <h2 class="cta-head">I Believe.</h2>
+      <p class="cta-sub">
+        Say what you believe. Mean it fully.<br>
+        Listen when someone else does the same.<br>
+        That's the whole thing.
+      </p>
+      <button class="btn-primary">Begin Your I Believe Series</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p class="footer-text">The Object of Much Debate &nbsp;·&nbsp; An open conversation about faith</p>
+    <p class="footer-tao">"The name that can be named is not the Name."</p>
+  </footer>
+
+
+  <script>
+    const btn = document.getElementById('mode-btn');
+    function toggleMode() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      btn.textContent = isDark ? '☀ Light' : '☽ Dark';
+      localStorage.setItem('tomd-theme', isDark ? 'dark' : 'light');
+    }
+    // Restore preference on load
+    if (localStorage.getItem('tomd-theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+      btn.textContent = '☀ Light';
+    }
+  </script>
+</body>
+</html>
