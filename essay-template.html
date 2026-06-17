@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What I Believe — The Object of Much Debate</title>
+
+  <!-- Favicons / App Icons -->
+  <link rel="icon" type="image/x-icon" href="/icons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png">
+  <meta name="theme-color" content="#1E1812">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Tokens: Light ── */
+    :root {
+      --cream:       #F5F0E8;
+      --parchment:   #EDE5D0;
+      --terracotta:  #C0674A;
+      --bark:        #3D2E1E;
+      --driftwood:   #7A6652;
+      --ash:         #5A4535;
+      --fog:         #A89880;
+      --mist:        #BFB09A;
+      --warm-white:  #FFF8F0;
+      --card-bg:     #FFF8F0;
+      --nav-bg:      #F5F0E8;
+      --footer-bg:   #EDE5D0;
+    }
+
+    /* ── Tokens: Dark ── */
+    html.dark {
+      --cream:       #1E1812;
+      --parchment:   #261E14;
+      --terracotta:  #D4784E;
+      --bark:        #E8DFC8;
+      --driftwood:   #B0987E;
+      --ash:         #C8B89A;
+      --fog:         #7A6A58;
+      --mist:        #5A4E40;
+      --warm-white:  #2A211A;
+      --card-bg:     #2A211A;
+      --nav-bg:      #1A1410;
+      --footer-bg:   #161210;
+    }
+
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      background: var(--cream);
+      color: var(--bark);
+      overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 48px;
+      background: var(--nav-bg);
+      border-bottom: 1px solid rgba(61,46,30,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-size: 14px;
+      color: var(--driftwood);
+      font-style: italic;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: var(--driftwood);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--bark); }
+    .nav-links a.primary {
+      color: var(--terracotta);
+      border-bottom: 1px solid var(--terracotta);
+      padding-bottom: 2px;
+    }
+    .mode-toggle {
+      background: none;
+      border: 1px solid rgba(61,46,30,0.2);
+      color: var(--driftwood);
+      font-family: Georgia, serif;
+      font-size: 13px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.5px;
+    }
+    .mode-toggle:hover {
+      border-color: var(--terracotta);
+      color: var(--terracotta);
+    }
+    html.dark .mode-toggle {
+      border-color: rgba(232,223,200,0.15);
+    }
+
+    /* ── Back link ── */
+    .back-link {
+      max-width: 640px;
+      margin: 48px auto 0;
+      padding: 0 32px;
+    }
+    .back-link a {
+      font-size: 13px;
+      color: var(--fog);
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+    .back-link a:hover { color: var(--terracotta); }
+
+    /* ── Essay header ── */
+    .essay-header {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 40px 32px 0;
+      text-align: center;
+    }
+    .essay-prompt-eyebrow {
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: var(--terracotta);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .essay-title {
+      font-size: clamp(34px, 5vw, 48px);
+      font-weight: normal;
+      line-height: 1.2;
+      color: var(--bark);
+      font-style: italic;
+      margin-bottom: 28px;
+      letter-spacing: -0.5px;
+    }
+    .essay-divider {
+      width: 40px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--terracotta), transparent);
+      margin: 0 auto 48px;
+      border-radius: 2px;
+    }
+
+    /* ── Essay body ── */
+    .essay-body {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 32px 60px;
+    }
+    .essay-body p {
+      font-size: 19px;
+      line-height: 1.9;
+      color: var(--ash);
+      margin-bottom: 28px;
+    }
+    .essay-body p:first-of-type {
+      font-size: 21px;
+    }
+    .essay-body p:first-of-type::first-letter {
+      font-size: 56px;
+      line-height: 0.8;
+      float: left;
+      padding-right: 10px;
+      padding-top: 6px;
+      color: var(--terracotta);
+      font-style: italic;
+    }
+
+    /* ── Author reveal ── */
+    .author-reveal {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 40px 32px;
+      border-top: 1px solid rgba(61,46,30,0.1);
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .author-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 1px solid rgba(192,103,74,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--terracotta);
+      font-style: italic;
+      flex-shrink: 0;
+    }
+    .author-info-text .author-name {
+      font-size: 16px;
+      color: var(--bark);
+      margin-bottom: 2px;
+    }
+    .author-info-text .author-tradition {
+      font-size: 13px;
+      color: var(--fog);
+      font-style: italic;
+    }
+
+    /* ── Respond toggle ── */
+    .respond-section {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 32px 80px;
+    }
+    .respond-toggle {
+      width: 100%;
+      background: transparent;
+      border: 1px solid rgba(61,46,30,0.18);
+      color: var(--driftwood);
+      padding: 16px 24px;
+      font-family: Georgia, serif;
+      font-size: 14px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all 0.2s;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .respond-toggle:hover {
+      border-color: var(--terracotta);
+      color: var(--terracotta);
+    }
+    .respond-toggle .arrow {
+      transition: transform 0.25s ease;
+      font-size: 13px;
+    }
+    .respond-toggle.open .arrow {
+      transform: rotate(90deg);
+    }
+
+    .respond-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, opacity 0.3s ease;
+      opacity: 0;
+    }
+    .respond-panel.open {
+      max-height: 600px;
+      opacity: 1;
+      margin-top: 16px;
+    }
+    .respond-inner {
+      background: var(--card-bg);
+      border-radius: 6px;
+      padding: 28px;
+    }
+    .respond-inner p.note {
+      font-size: 14px;
+      color: var(--fog);
+      line-height: 1.7;
+      margin-bottom: 18px;
+      font-style: italic;
+    }
+    .respond-inner textarea {
+      width: 100%;
+      min-height: 120px;
+      background: var(--cream);
+      border: 1px solid rgba(61,46,30,0.15);
+      border-radius: 4px;
+      padding: 14px;
+      font-family: Georgia, serif;
+      font-size: 15px;
+      color: var(--bark);
+      resize: vertical;
+      margin-bottom: 16px;
+    }
+    .respond-inner textarea:focus {
+      outline: none;
+      border-color: var(--terracotta);
+    }
+    .respond-submit {
+      background: var(--terracotta);
+      border: none;
+      color: var(--warm-white);
+      padding: 12px 28px;
+      font-family: Georgia, serif;
+      font-size: 14px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .respond-submit:hover { background: #A85840; }
+
+    /* ── Footer ── */
+    footer {
+      padding: 40px 48px;
+      text-align: center;
+      border-top: 1px solid rgba(61,46,30,0.08);
+      background: var(--footer-bg);
+    }
+    .footer-text {
+      font-size: 12px;
+      color: var(--fog);
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .footer-tao {
+      font-size: 12px;
+      color: var(--mist);
+      font-style: italic;
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 24px; }
+      .essay-header { padding: 32px 24px 0; }
+      .essay-body, .back-link, .author-reveal, .respond-section { padding-left: 24px; padding-right: 24px; }
+      .essay-body p { font-size: 17px; }
+      footer { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <a href="index.html" class="nav-logo">The Object of Much Debate</a>
+    <div class="nav-links">
+      <a href="index.html#essays">Essays</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#write" class="primary">Write</a>
+      <button class="mode-toggle" onclick="toggleMode()" id="mode-btn">☽ Dark</button>
+    </div>
+  </nav>
+
+  <!-- Back -->
+  <div class="back-link">
+    <a href="index.html#essays">← Back to Essays</a>
+  </div>
+
+  <!-- Essay Header -->
+  <div class="essay-header">
+    <p class="essay-prompt-eyebrow">What I Believe</p>
+    <h1 class="essay-title">On Naming the Unnameable</h1>
+    <div class="essay-divider"></div>
+  </div>
+
+  <!-- Essay Body -->
+  <div class="essay-body">
+    <p>
+      I believe in the thing that cannot be named without being diminished.
+      I believe the moment you call it God, you have already begun to shrink
+      it into something you can manage — something with a gender, a temperament,
+      a set of preferences that happen to align rather neatly with your own.
+    </p>
+    <p>
+      I have stood in cathedrals and felt nothing. I have stood in ordinary
+      kitchens and felt everything. I no longer trust the architecture of
+      certainty — the creeds, the systems, the tidy answers handed down like
+      heirlooms nobody asked for. What I trust now is the feeling underneath
+      all of it. The sense of touching something larger than I can see, in a
+      darkness too complete to be afraid of.
+    </p>
+    <p>
+      I believe in the cave. I believe in reaching out. I believe that what
+      I touch is real, even if it is only ever a part — heat where someone
+      else feels cold, softness where someone else feels stone. I believe the
+      contradictions are not a flaw in the search. They are the shape of the
+      thing itself.
+    </p>
+    <p>
+      I believe, mostly, in staying in the room. In not walking out when
+      someone describes a part of the dark I have never touched. That is
+      the closest thing to faith I have left — not certainty, but the
+      willingness to keep listening in the dark.
+    </p>
+  </div>
+
+  <!-- Author Reveal -->
+  <div class="author-reveal">
+    <div class="author-mark">B</div>
+    <div class="author-info-text">
+      <div class="author-name">BC Gordon</div>
+      <div class="author-tradition">Searching Atheist</div>
+    </div>
+  </div>
+
+  <!-- Respond -->
+  <div class="respond-section">
+    <button class="respond-toggle" id="respond-btn" onclick="toggleRespond()">
+      <span>Respond to this essay</span>
+      <span class="arrow">›</span>
+    </button>
+    <div class="respond-panel" id="respond-panel">
+      <div class="respond-inner">
+        <p class="note">
+          Not a debate. Just your own hand reaching into the same dark —
+          describe what you feel, even if it contradicts what you just read.
+        </p>
+        <textarea placeholder="What did you feel, reaching into the same dark?"></textarea>
+        <button class="respond-submit">Share Your Response</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p class="footer-text">The Object of Much Debate &nbsp;·&nbsp; An open conversation about faith</p>
+    <p class="footer-tao">"The name that can be named is not the Name."</p>
+  </footer>
+
+  <script>
+    const btn = document.getElementById('mode-btn');
+    function toggleMode() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      btn.textContent = isDark ? '☀ Light' : '☽ Dark';
+      localStorage.setItem('tomd-theme', isDark ? 'dark' : 'light');
+    }
+    if (localStorage.getItem('tomd-theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+      btn.textContent = '☀ Light';
+    }
+
+    function toggleRespond() {
+      const panel = document.getElementById('respond-panel');
+      const respondBtn = document.getElementById('respond-btn');
+      panel.classList.toggle('open');
+      respondBtn.classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

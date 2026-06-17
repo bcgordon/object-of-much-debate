@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Begin Your I Believe Series — The Object of Much Debate</title>
+
+  <!-- Favicons / App Icons -->
+  <link rel="icon" type="image/x-icon" href="/icons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png">
+  <meta name="theme-color" content="#1E1812">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Tokens: Light ── */
+    :root {
+      --cream:       #F5F0E8;
+      --parchment:   #EDE5D0;
+      --terracotta:  #C0674A;
+      --bark:        #3D2E1E;
+      --driftwood:   #7A6652;
+      --ash:         #5A4535;
+      --fog:         #A89880;
+      --mist:        #BFB09A;
+      --warm-white:  #FFF8F0;
+      --card-bg:     #FFF8F0;
+      --nav-bg:      #F5F0E8;
+      --footer-bg:   #EDE5D0;
+    }
+
+    /* ── Tokens: Dark ── */
+    html.dark {
+      --cream:       #1E1812;
+      --parchment:   #261E14;
+      --terracotta:  #D4784E;
+      --bark:        #E8DFC8;
+      --driftwood:   #B0987E;
+      --ash:         #C8B89A;
+      --fog:         #7A6A58;
+      --mist:        #5A4E40;
+      --warm-white:  #2A211A;
+      --card-bg:     #2A211A;
+      --nav-bg:      #1A1410;
+      --footer-bg:   #161210;
+    }
+
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      background: var(--cream);
+      color: var(--bark);
+      overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 48px;
+      background: var(--nav-bg);
+      border-bottom: 1px solid rgba(61,46,30,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-size: 14px;
+      color: var(--driftwood);
+      font-style: italic;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: var(--driftwood);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--bark); }
+    .nav-links a.primary {
+      color: var(--terracotta);
+      border-bottom: 1px solid var(--terracotta);
+      padding-bottom: 2px;
+    }
+    .mode-toggle {
+      background: none;
+      border: 1px solid rgba(61,46,30,0.2);
+      color: var(--driftwood);
+      font-family: Georgia, serif;
+      font-size: 13px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.5px;
+    }
+    .mode-toggle:hover {
+      border-color: var(--terracotta);
+      color: var(--terracotta);
+    }
+    html.dark .mode-toggle {
+      border-color: rgba(232,223,200,0.15);
+    }
+
+    /* ── Back link ── */
+    .back-link {
+      max-width: 680px;
+      margin: 48px auto 0;
+      padding: 0 32px;
+    }
+    .back-link a {
+      font-size: 13px;
+      color: var(--fog);
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+    .back-link a:hover { color: var(--terracotta); }
+
+    /* ── Intro header ── */
+    .intro-header {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 36px 32px 0;
+      text-align: center;
+    }
+    .intro-eyebrow {
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: var(--terracotta);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .intro-title {
+      font-size: clamp(36px, 5vw, 54px);
+      font-weight: normal;
+      line-height: 1.15;
+      color: var(--bark);
+      font-style: italic;
+      margin-bottom: 28px;
+      letter-spacing: -0.5px;
+    }
+    .intro-divider {
+      width: 40px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--terracotta), transparent);
+      margin: 0 auto 40px;
+      border-radius: 2px;
+    }
+    .intro-sub {
+      font-size: 18px;
+      line-height: 1.8;
+      color: var(--driftwood);
+      max-width: 540px;
+      margin: 0 auto 64px;
+    }
+
+    /* ── Section ── */
+    section {
+      padding: 0 0 64px;
+    }
+    .section-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    .section-eyebrow {
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: var(--terracotta);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-head {
+      font-size: 30px;
+      font-weight: normal;
+      color: var(--bark);
+      margin-bottom: 32px;
+      letter-spacing: -0.5px;
+    }
+
+    /* ── Prompt explainer list ── */
+    .prompt-explainer {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .prompt-row {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 24px;
+      padding: 28px 0;
+      border-bottom: 1px solid rgba(61,46,30,0.08);
+    }
+    .prompt-row:last-child { border-bottom: none; }
+    .prompt-row-label {
+      font-size: 19px;
+      color: var(--terracotta);
+      font-style: italic;
+      line-height: 1.4;
+    }
+    .prompt-row-desc {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--ash);
+    }
+
+    /* ── Tone note ── */
+    .tone-note {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 36px;
+      margin-top: 8px;
+    }
+    .tone-note p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--ash);
+      margin-bottom: 16px;
+    }
+    .tone-note p:last-child { margin-bottom: 0; }
+    .tone-note .tone-label {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--terracotta);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      display: block;
+    }
+
+    /* ── Submission ── */
+    .submit-box {
+      background: var(--parchment);
+      border-radius: 8px;
+      padding: 44px 36px;
+      text-align: center;
+    }
+    .submit-box p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--driftwood);
+      margin-bottom: 28px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .btn-primary {
+      background: var(--terracotta);
+      border: none;
+      color: var(--warm-white);
+      padding: 15px 36px;
+      font-family: Georgia, serif;
+      font-size: 14px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: #A85840; }
+    .submit-note {
+      font-size: 13px;
+      color: var(--fog);
+      margin-top: 20px;
+      font-style: italic;
+    }
+
+    /* ── Footer ── */
+    footer {
+      padding: 40px 48px;
+      text-align: center;
+      border-top: 1px solid rgba(61,46,30,0.08);
+      background: var(--footer-bg);
+    }
+    .footer-text {
+      font-size: 12px;
+      color: var(--fog);
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .footer-tao {
+      font-size: 12px;
+      color: var(--mist);
+      font-style: italic;
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 24px; }
+      .intro-header { padding: 28px 24px 0; }
+      .section-inner { padding: 0 24px; }
+      .prompt-row { grid-template-columns: 1fr; gap: 8px; }
+      .tone-note, .submit-box { padding: 28px 24px; }
+      footer { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <a href="index.html" class="nav-logo">The Object of Much Debate</a>
+    <div class="nav-links">
+      <a href="index.html#essays">Essays</a>
+      <a href="index.html#about">About</a>
+      <a href="begin.html" class="primary">Write</a>
+      <button class="mode-toggle" onclick="toggleMode()" id="mode-btn">☽ Dark</button>
+    </div>
+  </nav>
+
+  <!-- Back -->
+  <div class="back-link">
+    <a href="index.html">← Back Home</a>
+  </div>
+
+  <!-- Intro -->
+  <div class="intro-header">
+    <p class="intro-eyebrow">The Framework</p>
+    <h1 class="intro-title">Begin Your<br>I Believe Series</h1>
+    <div class="intro-divider"></div>
+    <p class="intro-sub">
+      Six prompts. Six invitations to say something true. Write one,
+      write all six, write them in any order, over any amount of time.
+      There is no deadline here — only the question, waiting.
+    </p>
+  </div>
+
+  <!-- The Six Prompts, Explained -->
+  <section>
+    <div class="section-inner">
+      <p class="section-eyebrow">The Prompts</p>
+      <h2 class="section-head">Six Questions, Turned Inward</h2>
+
+      <div class="prompt-explainer">
+        <div class="prompt-row">
+          <div class="prompt-row-label">What I Believe</div>
+          <div class="prompt-row-desc">
+            The plainest place to start. Name the thing itself — what you hold
+            to be true, however unfinished or uncertain that truth might be.
+          </div>
+        </div>
+        <div class="prompt-row">
+          <div class="prompt-row-label">Who I Believe</div>
+          <div class="prompt-row-desc">
+            The people, traditions, or voices that shaped what you believe —
+            or the absence of them. Belief rarely arrives alone.
+          </div>
+        </div>
+        <div class="prompt-row">
+          <div class="prompt-row-label">When I Believe</div>
+          <div class="prompt-row-desc">
+            The moment, or the recurring moment, when belief becomes real
+            instead of theoretical. Often the most personal of the six.
+          </div>
+        </div>
+        <div class="prompt-row">
+          <div class="prompt-row-label">Where I Believe</div>
+          <div class="prompt-row-desc">
+            The place — physical, or otherwise — where you feel closest
+            to whatever you believe in. Faith is often tied to a location
+            more than we admit.
+          </div>
+        </div>
+        <div class="prompt-row">
+          <div class="prompt-row-label">Why I Believe</div>
+          <div class="prompt-row-desc">
+            The hardest question, and the one least likely to have a clean
+            answer. Write toward it anyway.
+          </div>
+        </div>
+        <div class="prompt-row">
+          <div class="prompt-row-label">How I Believe</div>
+          <div class="prompt-row-desc">
+            Not what you believe, but the shape your believing takes —
+            quietly, loudly, daily, rarely, with doubt or without it.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tone -->
+  <section>
+    <div class="section-inner">
+      <div class="tone-note">
+        <span class="tone-label">A Note on Tone</span>
+        <p>
+          This isn't debate — the object has had enough of that. Nobody
+          comes here to win, and nobody comes here to be fixed. Write
+          what you actually believe, mean it fully, and trust that someone
+          reading it may see it entirely differently without needing you
+          to be wrong.
+        </p>
+        <p>
+          There's no minimum or maximum length, no required polish.
+          A short and honest paragraph is worth more here than a long
+          and careful argument.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Submit -->
+  <section>
+    <div class="section-inner">
+      <div class="submit-box">
+        <p>
+          For now, this part is simple. Write your essay — in any prompt,
+          in any order — and send it directly. It will be read, responded
+          to, and added to the site.
+        </p>
+        <a href="mailto:bc@runawayanchor.com?subject=I%20Believe%20Series%20Submission" class="btn-primary">
+          Send Your Essay
+        </a>
+        <p class="submit-note">bc@runawayanchor.com</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p class="footer-text">The Object of Much Debate &nbsp;·&nbsp; An open conversation about faith</p>
+    <p class="footer-tao">"The name that can be named is not the Name."</p>
+  </footer>
+
+  <script>
+    const btn = document.getElementById('mode-btn');
+    function toggleMode() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      btn.textContent = isDark ? '☀ Light' : '☽ Dark';
+      localStorage.setItem('tomd-theme', isDark ? 'dark' : 'light');
+    }
+    if (localStorage.getItem('tomd-theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+      btn.textContent = '☀ Light';
+    }
+  </script>
+</body>
+</html>
