@@ -338,6 +338,66 @@
 </head>
 <body>
 
+  <!-- Passphrase Gate -->
+  <div id="gate-overlay" style="
+    position: fixed; inset: 0; z-index: 9999;
+    background: #1E1812;
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity 0.4s ease;
+  ">
+    <div style="max-width: 360px; padding: 32px; text-align: center;">
+      <p style="font-family: Georgia, serif; font-size: 12px; letter-spacing: 4px; color: #D4784E; text-transform: uppercase; margin-bottom: 24px;">
+        You Are Invited to the Conversation
+      </p>
+      <p style="font-family: Georgia, serif; font-size: 16px; color: #B0987E; line-height: 1.7; margin-bottom: 32px;">
+        You were given a word to enter.
+      </p>
+      <input
+        type="password"
+        id="gate-input"
+        placeholder="enter the word"
+        style="
+          width: 100%; background: #2A211A; border: 1px solid rgba(232,223,200,0.2);
+          border-radius: 4px; padding: 14px 16px; font-family: Georgia, serif;
+          font-size: 16px; color: #E8DFC8; text-align: center; margin-bottom: 16px;
+        "
+        onkeydown="if(event.key==='Enter') checkGate()"
+      >
+      <p id="gate-error" style="font-family: Georgia, serif; font-size: 13px; color: #C0674A; margin-bottom: 16px; display: none;">
+        Not quite. Try again.
+      </p>
+      <button onclick="checkGate()" style="
+        background: #D4784E; border: none; color: #1E1812; padding: 12px 32px;
+        font-family: Georgia, serif; font-size: 14px; letter-spacing: 1px;
+        cursor: pointer; border-radius: 4px;
+      ">Enter</button>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const PASSPHRASE = 'belief';
+      const gate = document.getElementById('gate-overlay');
+      if (sessionStorage.getItem('tomd-gate-passed') === 'true') {
+        gate.style.display = 'none';
+      }
+      window.checkGate = function() {
+        const input = document.getElementById('gate-input');
+        const error = document.getElementById('gate-error');
+        if (input.value.trim().toLowerCase() === PASSPHRASE) {
+          sessionStorage.setItem('tomd-gate-passed', 'true');
+          gate.style.opacity = '0';
+          setTimeout(() => { gate.style.display = 'none'; }, 400);
+        } else {
+          error.style.display = 'block';
+          input.value = '';
+          input.focus();
+        }
+      };
+      document.getElementById('gate-input') && document.getElementById('gate-input').focus();
+    })();
+  </script>
+
   <!-- Nav -->
   <nav>
     <a href="index.html" class="nav-logo">The Object of Much Debate</a>
