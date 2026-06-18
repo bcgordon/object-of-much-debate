@@ -119,6 +119,7 @@
       min-height: 82vh;
       display: flex;
       align-items: center;
+      justify-content: center;
       padding: 80px 48px;
       overflow: hidden;
       background: linear-gradient(160deg, var(--cream) 60%, var(--parchment) 100%);
@@ -143,6 +144,7 @@
       max-width: 620px;
       position: relative;
       z-index: 1;
+      text-align: center;
     }
     .eyebrow {
       font-size: 12px;
@@ -162,9 +164,9 @@
     }
     .divider {
       width: 48px; height: 2px;
-      background: linear-gradient(90deg, var(--terracotta), transparent);
+      background: linear-gradient(90deg, transparent, var(--terracotta), transparent);
       border-radius: 2px;
-      margin-bottom: 28px;
+      margin: 0 auto 28px;
     }
     .subhead {
       font-size: 18px;
@@ -172,6 +174,8 @@
       color: var(--driftwood);
       margin-bottom: 28px;
       max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
     }
     .tao {
       font-size: 14px;
@@ -187,6 +191,7 @@
       display: flex;
       gap: 16px;
       flex-wrap: wrap;
+      justify-content: center;
     }
 
     /* ── Buttons ── */
